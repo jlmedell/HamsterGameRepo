@@ -1,0 +1,37 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
+
+# Uncomment if you have local build artifacts
+# /Builds/
+
+# Visual Studio cache
+.vs/
+.vscode/
+
+# Rider
+.idea/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Unity Cloud Build
+/[Uu]nityCloud/
+
+# Crash Reports
+sysinfo.txt
+
+# JetBrains Rider project files
+*.sln.iml
