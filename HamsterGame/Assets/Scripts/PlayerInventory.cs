@@ -43,7 +43,7 @@ public class PlayerInventory : MonoBehaviour
             burrowTimer = 0f;
             isHoldingBurrow = false;
         }
-        Debug.Log(burrowTimer);
+       // Debug.Log(burrowTimer);
     }
 
     void MakeBurrow()

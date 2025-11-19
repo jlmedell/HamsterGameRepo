@@ -13,7 +13,7 @@ public class FeederScript : MonoBehaviour
       if (playerObject != null)
       {
           inventory = playerObject.GetComponent<PlayerInventory>();
-         // Now you can access public members of playerScript
+         
       }
    }
    public void SetTarget(Transform newTarget)
@@ -34,7 +34,7 @@ public class FeederScript : MonoBehaviour
          // Optional: Destroy/deactivate object when it reaches close enough to the target
          if (Vector3.Distance(transform.position, target.position) < 0.1f)
          {
-            Destroy(gameObject); // Or use object pooling
+            Destroy(gameObject); 
             inventory.foodInInventory++;
             inventory.UpdateUI();
 
