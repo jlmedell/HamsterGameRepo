@@ -28,7 +28,8 @@ public class HamsterWheel : MonoBehaviour
         // Player leaves inner trigger → turn off collider
         wheelCollider.enabled = false;
         wheelActive = false;
-    }
+        feeder.Deactivate();
+   }
 
     // void OnTriggerStay2D(Collider2D other)
     // {
@@ -60,6 +61,7 @@ public class HamsterWheel : MonoBehaviour
             {
                 wheelCollider.enabled = true;
                 wheelActive = true;
+               
             }
         }
 
@@ -71,6 +73,7 @@ public class HamsterWheel : MonoBehaviour
             // Rotate around Z axis based on horizontal velocity
             float horizontalSpeed = playerRb.linearVelocity.x;
             wheelSprite.Rotate(0f, 0f, -horizontalSpeed * rotationSpeed * Time.deltaTime);
+         feeder.Activate();
         }
 
 

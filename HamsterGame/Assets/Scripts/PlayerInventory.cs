@@ -59,7 +59,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         if (inventoryText != null)
             inventoryText.text = $"Food In Inventory: {foodInInventory}";
