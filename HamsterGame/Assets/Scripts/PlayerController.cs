@@ -5,60 +5,84 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 30f;
-    public float jumpForce = 0.5f;
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
+   public float moveSpeed = 30f;
+   public float jumpForce = 0.5f;
+   public Transform groundCheck;
+   public float groundCheckRadius = 0.2f;
+   public LayerMask groundLayer;
 
-    private Rigidbody2D rb;
-    private bool isGrounded;
-    private float moveInput;
-
-    private float timer;
-    private float collectionLength = 50f;
-    public Slider collectionSlider; // Reference to UI Slider for collecting
+   private Rigidbody2D rb;
+   private SpriteRenderer sr;
+   private bool isGrounded;
+   private bool hasJumped = false;
+   private float moveInput;
+   private int lastMoveDirection = 1;
+   private float timer;
+   private float collectionLength = 50f;
+   public Slider collectionSlider; // Reference to UI Slider for collecting
    private bool inRange = false;
-   
 
-
+   public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
+   private float coyoteTimeCounter;
 
    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+   {
+      rb = GetComponent<Rigidbody2D>();
+      sr = GetComponent<SpriteRenderer>();
       timer = 0;
       collectionSlider.gameObject.SetActive(false);
-    }
+   }
 
-    void Update()
-    {
+   void Update()
+   {
       // Increment the timer by the time elapsed since the last frame
-      
-      
+
+
+      // Check if grounded
+      isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+      // Reset coyote timer and jump flag if grounded
+      if (isGrounded)
+      {
+         coyoteTimeCounter = coyoteTime;
+         hasJumped = false;
+      }
+      else
+      {
+         coyoteTimeCounter -= Time.deltaTime;
+      }
+
       // Horizontal movement input
       moveInput = Input.GetAxisRaw("Horizontal");
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+      rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-        // Jumping
-        if (Input.GetButtonDown("Jump"))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        }
+      // flip sprite
+      if (moveInput != 0)
+         lastMoveDirection = (moveInput > 0) ? 1 : -1;
+      sr.flipX = lastMoveDirection == -1;
 
-        if (transform.position.y < -5f)
-        {
-            RestartLevel();
-        }
+      // Jumping
+      if (Input.GetButtonDown("Jump") && coyoteTimeCounter > 0f && !hasJumped)
+      {
+         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+         hasJumped = true;        // prevent double jump
+         coyoteTimeCounter = 0f;  // optional, stops further jumps until grounded
+      }
 
-        //collecting food
-        if (Input.GetKey(KeyCode.E) && inRange)
+      if (transform.position.y < -5f)
+      {
+         RestartLevel();
+      }
+
+      //collecting food
+      if (Input.GetKey(KeyCode.E) && inRange)
       {
          timer += Time.deltaTime;
          collectionSlider.gameObject.SetActive(true);
          collectionSlider.value += collectionLength * Time.deltaTime;
 
       }
-        if (collectionSlider.value == collectionSlider.maxValue)
+      if (collectionSlider.value == collectionSlider.maxValue)
       {
          Debug.Log("Starting Collection");
          StartCollection();
@@ -75,26 +99,20 @@ public class PlayerController : MonoBehaviour
       collectionSlider.value = Mathf.Clamp(collectionSlider.value, collectionSlider.minValue, collectionSlider.maxValue);
    }
 
-    void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+   void RestartLevel()
+   {
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+   }
 
-    void FixedUpdate()
-    {
-        // Check if player is touching the ground
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // Visualize ground check
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-        }
-    }
+   void OnDrawGizmosSelected()
+   {
+      // Visualize ground check
+      if (groundCheck != null)
+      {
+         Gizmos.color = Color.red;
+         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+      }
+   }
    public void StartCollection()
    {
       GameObject[] collectibles = GameObject.FindGameObjectsWithTag("Food");
@@ -102,7 +120,7 @@ public class PlayerController : MonoBehaviour
       {
          int randomIndex = Random.Range(0, collectibles.Length);
          FeederScript collectibleScript = collectibles[randomIndex].GetComponent<FeederScript>();
-         if(collectibleScript != null)
+         if (collectibleScript != null)
          {
             // Set the player's transform as the target
             collectibleScript.SetTarget(this.transform);
@@ -113,11 +131,13 @@ public class PlayerController : MonoBehaviour
    //check if player in range
    private void OnTriggerEnter2D(Collider2D collision)
    {
-      if (collision.CompareTag("Bowl")) {
+      if (collision.CompareTag("Bowl"))
          inRange = true;
-      } else
-      {
+   }
+
+   private void OnTriggerExit2D(Collider2D collision)
+   {
+      if (collision.CompareTag("Bowl"))
          inRange = false;
-      }
    }
 }
