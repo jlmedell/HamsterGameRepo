@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro; // Only if using TextMeshPro
-using UnityEngine.UI; // Use this instead if you’re using legacy UI Text
+using UnityEngine.UI; // Use this instead if you're using legacy UI Text
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -34,6 +34,8 @@ public class PlayerInventory : MonoBehaviour
             {
                 MakeBurrow();
                 isHoldingBurrow = true;
+                burrowTimer = 0f;
+                isHoldingBurrow = false;
             }
         }
         else
@@ -41,6 +43,7 @@ public class PlayerInventory : MonoBehaviour
             burrowTimer = 0f;
             isHoldingBurrow = false;
         }
+        Debug.Log(burrowTimer);
     }
 
     void MakeBurrow()
