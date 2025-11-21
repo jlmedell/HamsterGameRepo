@@ -1,7 +1,12 @@
 using UnityEngine;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class HamsterWheel : MonoBehaviour
 {
+    
+    public TMP_Text exitPromptText;
+
     public float activationSpeed = 0.2f;  // how fast the player must move
     public Feeder feeder;                 // reference to feeder script
     public Collider2D wheelCollider;      // the circle collider on the wheel
@@ -9,7 +14,7 @@ public class HamsterWheel : MonoBehaviour
     public string playerTag = "Player";
 
     [SerializeField]
-    PlayerController playerController;
+    public PlayerController playerController;
     [SerializeField]
     Collider2D playerCollider;
     public Transform wheelSprite;
@@ -57,12 +62,21 @@ public class HamsterWheel : MonoBehaviour
         if (innerTrigger.bounds.Contains(playerCollider.bounds.min) &&
             innerTrigger.bounds.Contains(playerCollider.bounds.max))
         {
+            exitPromptText.text = "Press E to exit wheel";
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                playerController.TeleportPlayer();
+            }
             if (!wheelActive)
             {
                 wheelCollider.enabled = true;
                 wheelActive = true;
                
             }
+        }
+        else
+        {
+            exitPromptText.text = "";
         }
 
         if (playerRb == null) return;

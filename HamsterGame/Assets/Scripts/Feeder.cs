@@ -31,6 +31,8 @@ public class Feeder : MonoBehaviour
    //otherwise slider will go down if player is moving outside of the wheel.
    void Update()
    {
+        
+      
       if (isCharging && (playerRb.linearVelocity.x != 0))
       {
 

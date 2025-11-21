@@ -4,6 +4,7 @@ using UnityEngine.UI; // Use this instead if you're using legacy UI Text
 
 public class PlayerInventory : MonoBehaviour
 {
+    public TMP_Text burrowPromptText;
     private Rigidbody2D rb;
     [Header("Food Settings")]
     public int foodInInventory = 0;
@@ -14,7 +15,7 @@ public class PlayerInventory : MonoBehaviour
     public TextMeshProUGUI burrowText;
 
     [Header("Burrow Settings")]
-    public float burrowHoldTime = 0.75f;
+    public float burrowHoldTime = 0.25f;
 
     private float burrowTimer = 0f;
     private bool isHoldingBurrow = false;
@@ -30,6 +31,14 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         rb.gravityScale = 3 + (foodInInventory * 0.5f);
+        if (foodInInventory > 0)
+        {
+            burrowPromptText.text = "Hold B to burrow";
+        }
+        else
+        {
+            burrowPromptText.text = "";
+        }
         // Detect when player holds the B key
         if (Input.GetKey(KeyCode.B))
         {
