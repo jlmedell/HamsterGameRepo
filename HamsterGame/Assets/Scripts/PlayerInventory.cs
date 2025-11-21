@@ -30,7 +30,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = 3 + (foodInInventory * 0.5f);
+        rb.gravityScale = 3 + (foodInInventory * 0.2f); //food in inventory affects jumping
         if (foodInInventory > 0)
         {
             burrowPromptText.text = "Hold B to burrow";
