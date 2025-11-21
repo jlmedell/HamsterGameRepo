@@ -35,7 +35,9 @@ public class PlayerController : MonoBehaviour
 
    void Update()
    {
-      // Increment the timer by the time elapsed since the last frame
+
+
+       
 
 
       // Check if grounded
