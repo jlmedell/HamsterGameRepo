@@ -19,10 +19,17 @@ public class PlayerInventory : MonoBehaviour
 
     private float burrowTimer = 0f;
     private bool isHoldingBurrow = false;
+    
+   public PlayerController player;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.GetComponent<PlayerController>();
+        }
         foodInInventory = 0;
         inventoryText.text = $"Food In Inventory: {foodInInventory}";
         UpdateUI();
@@ -68,6 +75,7 @@ public class PlayerInventory : MonoBehaviour
             foodInInventory -= 1;
             UpdateUI();
             Debug.Log("Burrow made! Food moved to burrows.");
+            player.OnBurrow();
             // (Play burrow animation here later)
         }
         else

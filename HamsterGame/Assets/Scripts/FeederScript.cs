@@ -5,6 +5,7 @@ public class FeederScript : MonoBehaviour
    private Transform target;
    public float speed = 5f; // Adjust speed in the Inspector
    public PlayerInventory inventory;
+   public PlayerController player;
 
    // Call this method to start the collection process
    public void Start()
@@ -13,7 +14,7 @@ public class FeederScript : MonoBehaviour
       if (playerObject != null)
       {
           inventory = playerObject.GetComponent<PlayerInventory>();
-         
+          player = playerObject.GetComponent<PlayerController>();
       }
    }
    public void SetTarget(Transform newTarget)
@@ -37,6 +38,10 @@ public class FeederScript : MonoBehaviour
             Destroy(gameObject); 
             inventory.foodInInventory++;
             inventory.UpdateUI();
+            if(player != null)
+            {
+            player.OnCollect();
+            }
 
          }
       }

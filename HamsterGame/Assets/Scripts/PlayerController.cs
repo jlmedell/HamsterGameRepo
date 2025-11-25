@@ -135,6 +135,18 @@ public class PlayerController : MonoBehaviour
       }
    }
 
+   public void OnCollect()
+   {
+      moveSpeed -= 0.25f;
+      jumpForce -= 0.1f;
+   }
+
+   public void OnBurrow()
+   {
+      if (moveSpeed < 5) moveSpeed += 0.25f;
+      if (jumpForce < 12) jumpForce += 0.1f;
+   }
+
    //check if player in range
    private void OnTriggerEnter2D(Collider2D collision)
    {
