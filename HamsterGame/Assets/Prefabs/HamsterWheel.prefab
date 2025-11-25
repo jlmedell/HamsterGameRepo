@@ -176,9 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804fe506c659bcb4dac193ca3dd50091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HamsterWheel
+  exitPromptText: {fileID: 0}
   activationSpeed: 0.2
   feeder: {fileID: 0}
-  wheelCollider: {fileID: 6786905209985576495}
+  wheelCollider: {fileID: 1339692833799596844}
   innerTrigger: {fileID: 6041642197610272103}
   playerTag: Player
   playerController: {fileID: 0}

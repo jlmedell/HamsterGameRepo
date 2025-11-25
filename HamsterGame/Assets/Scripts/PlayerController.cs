@@ -6,8 +6,8 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public TMP_Text eatPromptText;
-    public float moveSpeed = 30f;
+   public TMP_Text eatPromptText;
+   public float moveSpeed = 30f;
    public float jumpForce = 0.5f;
    public Transform groundCheck;
    public float groundCheckRadius = 0.2f;
@@ -37,11 +37,6 @@ public class PlayerController : MonoBehaviour
 
    void Update()
    {
-
-
-       
-
-
       // Check if grounded
       isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
@@ -80,20 +75,20 @@ public class PlayerController : MonoBehaviour
 
       //collecting food
       if (inRange)
-        {
-            eatPromptText.text = "Press E to obtain food";
-        }
+      {
+         eatPromptText.text = "Press E to obtain food";
+      }
       else
-        {
-            eatPromptText.text = "";
-        }
+      {
+         eatPromptText.text = "";
+      }
       if (Input.GetKey(KeyCode.E) && inRange)
-        {
-            timer += Time.deltaTime;
-            collectionSlider.gameObject.SetActive(true);
-            collectionSlider.value += collectionLength * Time.deltaTime;
+      {
+         timer += Time.deltaTime;
+         collectionSlider.gameObject.SetActive(true);
+         collectionSlider.value += collectionLength * Time.deltaTime;
 
-        }
+      }
       if (collectionSlider.value == collectionSlider.maxValue)
       {
          Debug.Log("Starting Collection");
@@ -111,12 +106,7 @@ public class PlayerController : MonoBehaviour
       collectionSlider.value = Mathf.Clamp(collectionSlider.value, collectionSlider.minValue, collectionSlider.maxValue);
    }
 
-    public void TeleportPlayer()
-    {
-        transform.position = new Vector2(34.3f, -0.97f);
-    }
-
-    void RestartLevel()
+   void RestartLevel()
    {
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
    }

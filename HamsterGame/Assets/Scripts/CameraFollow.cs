@@ -6,21 +6,30 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public Vector3 offset;
 
-    private float fixedY; // store the starting Y position
+    private float fixedY;
 
     void Start()
     {
-        fixedY = transform.position.y; // remember the initial camera height
+        fixedY = transform.position.y;
     }
 
-    void LateUpdate()
+    private Vector3 velocity = Vector3.zero;
+
+    void FixedUpdate()
     {
-        if (target != null)
-        {
-            // Follow player only on X, but keep camera’s starting Y
-            Vector3 desiredPosition = new Vector3(target.position.x + offset.x, fixedY + offset.y, transform.position.z);
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-            transform.position = smoothedPosition;
-        }
+        if (target == null) return;
+
+        Vector3 desiredPosition = new Vector3(
+            target.position.x + offset.x,
+            fixedY + offset.y,
+            transform.position.z
+        );
+
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            desiredPosition,
+            ref velocity,
+            smoothSpeed
+        );
     }
 }

@@ -4,13 +4,13 @@ using UnityEditor.Experimental.GraphView;
 
 public class HamsterWheel : MonoBehaviour
 {
-    
+
     public TMP_Text exitPromptText;
 
     public float activationSpeed = 0.2f;  // how fast the player must move
     public Feeder feeder;                 // reference to feeder script
     public Collider2D wheelCollider;      // the circle collider on the wheel
-    public Collider2D innerTrigger;       // trigger collider
+    public Collider2D entryTrigger;       // trigger collider
     public string playerTag = "Player";
 
     [SerializeField]
@@ -18,6 +18,9 @@ public class HamsterWheel : MonoBehaviour
     [SerializeField]
     Collider2D playerCollider;
     public Transform wheelSprite;
+    public SpriteRenderer wheelSpriteRenderer;
+    public int defaultSortingOrder = -5;   // outside wheel
+    public int insideSortingOrder = 1;    // when player is inside
     public Rigidbody2D playerRb;         // reference to the player's Rigidbody2D
     public float rotationSpeed = 50f;   // multiplier for visual speed
     private bool wheelActive = false;
@@ -25,71 +28,60 @@ public class HamsterWheel : MonoBehaviour
     {
         wheelCollider.enabled = false;
     }
+    private void EnterWheel()
+    {
+        wheelCollider.enabled = true;
+        wheelActive = true;
+        feeder.Activate();
+        if (wheelSpriteRenderer != null)
+        {
+            wheelSpriteRenderer.sortingOrder = insideSortingOrder; // in front of player
+        }
+    }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void ExitWheel()
+    {
+        wheelActive = false;
+        wheelCollider.enabled = false;
+        feeder.Deactivate();
+
+        if (wheelSpriteRenderer != null)
+        {
+            wheelSpriteRenderer.sortingOrder = defaultSortingOrder; // behind player
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
-
-        // Player leaves inner trigger → turn off collider
-        wheelCollider.enabled = false;
-        wheelActive = false;
-        feeder.Deactivate();
-   }
-
-    // void OnTriggerStay2D(Collider2D other)
-    // {
-    //     Rigidbody2D rb = other.attachedRigidbody;
-    //     if (rb == null) return;
-
-    //     // Check player horizontal speed
-    //     float speed = Mathf.Abs(rb.linearVelocity.x);
-
-    //     // if (speed > activationSpeed)
-    //     // {
-    //     //     feeder.Activate();
-    //     // }
-    //     // else
-    //     // {
-    //     //     feeder.Deactivate();
-    //     // }
-    // }
-
+        if (other == playerCollider)
+        {
+            if (other.IsTouching(entryTrigger))
+            {
+                EnterWheel();
+            }
+        }
+    }
     void Update()
     {
         if (playerCollider == null) return;
+        if (playerRb == null) return;
 
-        // Check if the player is fully inside the trigger
-        if (innerTrigger.bounds.Contains(playerCollider.bounds.min) &&
-            innerTrigger.bounds.Contains(playerCollider.bounds.max))
+        if (Input.GetButtonDown("Jump"))
         {
-            exitPromptText.text = "Press E to exit wheel";
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                playerController.TeleportPlayer();
-            }
-            if (!wheelActive)
-            {
-                wheelCollider.enabled = true;
-                wheelActive = true;
-               
-            }
+            ExitWheel();
+        }
+
+        if (wheelActive)
+        {
+            exitPromptText.text = "Jump to exit wheel";
+            float horizontalSpeed = playerRb.linearVelocity.x;
+            wheelSprite.Rotate(0f, 0f, -horizontalSpeed * rotationSpeed * Time.deltaTime);
         }
         else
         {
             exitPromptText.text = "";
         }
-
-        if (playerRb == null) return;
-
-
-        if (wheelActive)
-        {
-            // Rotate around Z axis based on horizontal velocity
-            float horizontalSpeed = playerRb.linearVelocity.x;
-            wheelSprite.Rotate(0f, 0f, -horizontalSpeed * rotationSpeed * Time.deltaTime);
-         feeder.Activate();
-        }
-
-
     }
+
 }
