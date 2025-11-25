@@ -23,9 +23,16 @@ public class PlayerInventory : MonoBehaviour
     //Food object to spawn back
     public GameObject objectToSpawn; 
 
+    public PlayerController player;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.GetComponent<PlayerController>();
+        }
         foodInInventory = 0;
         inventoryText.text = $"Food In Inventory: {foodInInventory}";
         UpdateUI();
@@ -33,20 +40,11 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        rb.gravityScale = 3 + (foodInInventory * 0.2f); //food in inventory affects jumping
-        if (foodInInventory > 0)
-        {
-            burrowPromptText.text = "Hold B to burrow";
-        }
-        else
-        {
-            burrowPromptText.text = "";
-        }
+        rb.gravityScale = 3 + (foodInInventory * 0.2f); // food in inventory affects jumping
         // Detect when player holds the B key
-        if (Input.GetKey(KeyCode.B))
+        if (Input.GetKey(KeyCode.B) && player.moveInput == 0)
         {
             burrowTimer += Time.deltaTime;
-
             if (!isHoldingBurrow && burrowTimer >= burrowHoldTime)
             {
                 MakeBurrow();
@@ -60,7 +58,7 @@ public class PlayerInventory : MonoBehaviour
             burrowTimer = 0f;
             isHoldingBurrow = false;
         }
-       // Debug.Log(burrowTimer);
+        UpdateUI();
     }
 
     void MakeBurrow()
@@ -70,13 +68,8 @@ public class PlayerInventory : MonoBehaviour
             foodInBurrows += 1;
             foodInInventory -= 1;
             UpdateUI();
-            Debug.Log("Burrow made! Food moved to burrows.");
             // (Play burrow animation here later)
             BurrowAction();
-        }
-        else
-        {
-            Debug.Log("No food in inventory to store!");
         }
     }
 
@@ -86,6 +79,18 @@ public class PlayerInventory : MonoBehaviour
             inventoryText.text = $"Food In Inventory: {foodInInventory}";
         if (burrowText != null)
             burrowText.text = $"Food In Burrows: {foodInBurrows}";
+        if(foodInInventory <= 0)
+        {
+            burrowPromptText.text = "No food to burrow!";
+        }
+        else if (burrowTimer >= burrowHoldTime || burrowTimer == 0)
+        {
+            burrowPromptText.text = "Hold B to burrow";
+        }
+        else
+        {
+            burrowPromptText.text = "Burrowing...";
+        }
     }
     // Spawn food object when burrowing
      void BurrowAction()

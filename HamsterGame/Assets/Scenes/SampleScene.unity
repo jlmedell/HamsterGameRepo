@@ -2932,6 +2932,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  moveInput: 0
   collectionSlider: {fileID: 470177373}
   inRangeBurrow: 0
   coyoteTime: 0.2
@@ -3055,6 +3056,7 @@ MonoBehaviour:
   burrowText: {fileID: 724303642}
   burrowHoldTime: 2
   objectToSpawn: {fileID: 1465944162490708719, guid: 6bbcd97caa02d4e6999c6413f7823ece, type: 3}
+  player: {fileID: 0}
 --- !u!58 &1798974966
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3353,6 +3355,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038362603}
   m_CullTransparentMesh: 1
+--- !u!1001 &2045308841
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 54.930573
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5800954
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923795860685211630, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579844295956277801, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: m_Name
+      value: HamsterBall
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
 --- !u!1 &2120935491
 GameObject:
   m_ObjectHideFlags: 0
@@ -3595,3 +3654,4 @@ SceneRoots:
   - {fileID: 164348999}
   - {fileID: 307454605}
   - {fileID: 1301204906}
+  - {fileID: 2045308841}

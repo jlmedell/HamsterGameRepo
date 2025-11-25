@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
    private SpriteRenderer sr;
    private bool isGrounded;
    private bool hasJumped = false;
-   private float moveInput;
+   public float moveInput;
    private int lastMoveDirection = 1;
    private float timer;
    private float collectionLength = 50f;
@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
    public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
    private float coyoteTimeCounter;
+
+   private GameObject[] collectibles;
 
    void Start()
    {
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
       sr.flipX = lastMoveDirection == -1;
 
       // Jumping
-      if (Input.GetButtonDown("Jump") && coyoteTimeCounter > 0f && !hasJumped)
+      if (Input.GetButtonDown("Jump") && coyoteTimeCounter > 0.1f && !hasJumped)
       {
          rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
          hasJumped = true;        // prevent double jump
@@ -74,8 +76,8 @@ public class PlayerController : MonoBehaviour
          RestartLevel();
       }
 
-      //collecting food
-      if (inRange)
+      // collecting food
+      if (inRange && collectibles.Length > 0)
       {
          eatPromptText.text = "Press E to obtain food";
       }
@@ -90,6 +92,7 @@ public class PlayerController : MonoBehaviour
          collectionSlider.value += collectionLength * Time.deltaTime;
 
       }
+      collectibles = GameObject.FindGameObjectsWithTag("Food");
       if (collectionSlider.value == collectionSlider.maxValue)
       {
          Debug.Log("Starting Collection");
@@ -100,7 +103,7 @@ public class PlayerController : MonoBehaviour
          timer = 0;
          collectionSlider.value = 0;
       }
-      if (Input.GetKeyUp(KeyCode.E) || (!inRange && !inRangeBurrow))
+      if (Input.GetKeyUp(KeyCode.E) || (!inRange && !inRangeBurrow) || collectibles.Length <= 0)
       {
          timer = 0;
          collectionSlider.gameObject.SetActive(false);
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour
    }
    public void StartCollection()
    {
-      GameObject[] collectibles = GameObject.FindGameObjectsWithTag("Food");
+      //collectibles = GameObject.FindGameObjectsWithTag("Food");
       if (collectibles.Length > 0)
       {
          int randomIndex = Random.Range(0, collectibles.Length);
