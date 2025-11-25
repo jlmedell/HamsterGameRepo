@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // Only if using TextMeshPro
 using UnityEngine.UI; // Use this instead if you're using legacy UI Text
+using System.Collections;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
 
     private float burrowTimer = 0f;
     private bool isHoldingBurrow = false;
+    //Food object to spawn back
+    public GameObject objectToSpawn; 
 
     void Start()
     {
@@ -69,6 +72,7 @@ public class PlayerInventory : MonoBehaviour
             UpdateUI();
             Debug.Log("Burrow made! Food moved to burrows.");
             // (Play burrow animation here later)
+            BurrowAction();
         }
         else
         {
@@ -83,4 +87,18 @@ public class PlayerInventory : MonoBehaviour
         if (burrowText != null)
             burrowText.text = $"Food In Burrows: {foodInBurrows}";
     }
+    // Spawn food object when burrowing
+     void BurrowAction()
+   {
+      
+
+
+      // Create a new Vector2 for the spawn position (for 2D)
+      Vector2 spawnPosition = new(transform.position.x, transform.position.y - 1.1f);
+      float randomZRotation = Random.Range(0f, 360f); // Random angle between 0 and 360 degrees
+      Quaternion randomRotation = Quaternion.Euler(0, 0, randomZRotation); // X and Y are 0 for 2D
+      GameObject spawnFood = Instantiate(objectToSpawn, spawnPosition, randomRotation, this.transform); // Spawn the object at the spawner's position
+      spawnFood.transform.localScale = new Vector3(0.025f, 0.025f, 0.2f); //scale down food when spawned from burrow
+      spawnFood.transform.parent = null;
+   }
 }

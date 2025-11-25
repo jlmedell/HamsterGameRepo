@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Food
   - Bowl
+  - BurrowFood
   layers:
   - Default
   - TransparentFX

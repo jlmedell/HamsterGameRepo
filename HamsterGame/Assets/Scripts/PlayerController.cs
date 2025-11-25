@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
    private float collectionLength = 50f;
    public Slider collectionSlider; // Reference to UI Slider for collecting
    private bool inRange = false;
+   public bool inRangeBurrow = false;
 
    public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
    private float coyoteTimeCounter;
@@ -82,7 +83,7 @@ public class PlayerController : MonoBehaviour
       {
          eatPromptText.text = "";
       }
-      if (Input.GetKey(KeyCode.E) && inRange)
+      if (Input.GetKey(KeyCode.E) && (inRange || inRangeBurrow))
       {
          timer += Time.deltaTime;
          collectionSlider.gameObject.SetActive(true);
@@ -92,11 +93,14 @@ public class PlayerController : MonoBehaviour
       if (collectionSlider.value == collectionSlider.maxValue)
       {
          Debug.Log("Starting Collection");
-         StartCollection();
+         if (inRange)
+            StartCollection();
+         else if (inRangeBurrow)
+            StartBurrowCollection();
          timer = 0;
          collectionSlider.value = 0;
       }
-      if (Input.GetKeyUp(KeyCode.E) || !inRange)
+      if (Input.GetKeyUp(KeyCode.E) || (!inRange && !inRangeBurrow))
       {
          timer = 0;
          collectionSlider.gameObject.SetActive(false);
@@ -134,17 +138,54 @@ public class PlayerController : MonoBehaviour
          }
       }
    }
+   public void StartBurrowCollection() {
+      GameObject findNearbyFood = FindClosestObjectWithTag("BurrowFood");
+      FeederScript collectibleScript = findNearbyFood.GetComponent<FeederScript>();
+      if (collectibleScript != null)
+      {
+         // Set the player's transform as the target
+         collectibleScript.SetTarget(this.transform);
+      } 
+   }
 
    //check if player in range
    private void OnTriggerEnter2D(Collider2D collision)
    {
-      if (collision.CompareTag("Bowl"))
+      if (collision.CompareTag("Bowl")) {
          inRange = true;
+      }
+      if (collision.CompareTag("BurrowFood"))
+      {
+         inRangeBurrow = true;
+      }
    }
 
    private void OnTriggerExit2D(Collider2D collision)
    {
-      if (collision.CompareTag("Bowl"))
-         inRange = false;
+      if (collision.CompareTag("Bowl")) {
+         inRange = false; 
+         }
+      if (collision.CompareTag("BurrowFood")) {
+         inRangeBurrow = false;
+      }
    }
+
+//fix bug of picking up food far away
+   GameObject FindClosestObjectWithTag(string tag)
+    {
+        GameObject[] gameObjectsWithTag = GameObject.FindGameObjectsWithTag(tag);
+        GameObject nearestObject = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject obj in gameObjectsWithTag)
+        {
+            float distance = Vector3.Distance(transform.position, obj.transform.position);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestObject = obj;
+            }
+        }
+        return nearestObject;
+    }
 }

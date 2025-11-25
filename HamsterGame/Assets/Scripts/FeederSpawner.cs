@@ -33,6 +33,6 @@ public class FeederSpawner : MonoBehaviour
       Vector2 spawnPosition = new(transform.position.x + randomX, transform.position.y + onBowl);
       float randomZRotation = Random.Range(0f, 360f); // Random angle between 0 and 360 degrees
       Quaternion randomRotation = Quaternion.Euler(0, 0, randomZRotation); // X and Y are 0 for 2D
-      Instantiate(objectToSpawn, spawnPosition, randomRotation, this.transform); // Spawn the object at the spawner's position
+      Instantiate(objectToSpawn, spawnPosition, randomRotation); // Spawn the object at the spawner's position
    }
 }

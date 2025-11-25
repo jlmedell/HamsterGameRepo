@@ -5,6 +5,7 @@ public class FeederScript : MonoBehaviour
    private Transform target;
    public float speed = 5f; // Adjust speed in the Inspector
    public PlayerInventory inventory;
+   public PlayerController Player;
 
    // Call this method to start the collection process
    public void Start()
@@ -13,6 +14,7 @@ public class FeederScript : MonoBehaviour
       if (playerObject != null)
       {
           inventory = playerObject.GetComponent<PlayerInventory>();
+          Player = playerObject.GetComponent<PlayerController>();
       }
    }
    public void SetTarget(Transform newTarget)
@@ -30,11 +32,14 @@ public class FeederScript : MonoBehaviour
          // Move towards the target position
          transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
-         // Optional: Destroy/deactivate object when it reaches close enough to the target
+         //Animation to bring food to player
          if (Vector3.Distance(transform.position, target.position) < 0.1f)
          {
-            Destroy(gameObject); 
             inventory.foodInInventory++;
+            if(Player.inRangeBurrow)
+               inventory.foodInBurrows--;
+            Destroy(gameObject); 
+            
             inventory.UpdateUI();
 
          }
