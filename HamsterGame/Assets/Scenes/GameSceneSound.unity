@@ -948,7 +948,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -9999
   m_Sprite: {fileID: -5049444376640792912, guid: 4561ca4471057e0498815ef1b741fdaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1612,7 +1612,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -3.79, y: 0.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2233,10 +2233,10 @@ RectTransform:
   - {fileID: 1235473088}
   m_Father: {fileID: 310349189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 962.1, y: 95.7}
-  m_SizeDelta: {x: 213.45, y: 49.9163}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 45.4}
+  m_SizeDelta: {x: 213.45001, y: 49.9163}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972483951
 MonoBehaviour:
@@ -2515,7 +2515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.0000153, y: 0}
+  m_AnchoredPosition: {x: -5.0000305, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1301204904
@@ -3230,7 +3230,7 @@ Transform:
   m_GameObject: {fileID: 1798974959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.68, y: -0.94, z: 0}
+  m_LocalPosition: {x: -4.19, y: -0.78, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4908,6 +4908,14 @@ PrefabInstance:
       propertyPath: playerSprite
       value: 
       objectReference: {fileID: 1798974963}
+    - target: {fileID: 6739820901392934804, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: playerInsideOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739820901392934804, guid: f113eaa1babb9a050a9515b488cb3c5c, type: 3}
+      propertyPath: playerInFrontOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
