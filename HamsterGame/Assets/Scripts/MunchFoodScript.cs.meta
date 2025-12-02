@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: f25ff7b90b2b88b419f82726f2176885
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - munchSound: {fileID: 8300000, guid: 6a37ea780bad10940ae9ba7377f39d3e, type: 3}
+  - BurrowSound: {fileID: 8300000, guid: 60ac39cdb90ca1940b9586b1be7c1175, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
