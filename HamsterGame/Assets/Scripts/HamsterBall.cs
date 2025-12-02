@@ -13,7 +13,7 @@ public class HamsterBall : MonoBehaviour
     public int playerInFrontOrder = 1;   // player appears in front of ball
     public int playerInsideOrder = -1;   // player appears behind ball
 
-    private bool playerInside = false;
+    public bool playerInside = false;
     private bool canEnter = true;
     private Transform player;
 

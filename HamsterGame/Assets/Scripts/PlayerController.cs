@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
    public bool inRange = false;
    public bool inRangeBurrow = false;
    public MunchFoodScript munchFoodScript;
+   public HamsterBall hamsterBall;
 
    public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
    private float coyoteTimeCounter;
@@ -37,6 +38,8 @@ public class PlayerController : MonoBehaviour
       sr = GetComponent<SpriteRenderer>();
       timer = 0;
       collectionSlider.gameObject.SetActive(false);
+      hamsterBall = GameObject.FindGameObjectWithTag("HamsterBall").GetComponent<HamsterBall>();
+      Debug.Log(hamsterBall);
    }
 
    void Update()
@@ -81,6 +84,10 @@ public class PlayerController : MonoBehaviour
       if (inRange && collectibles.Length > 0)
       {
          eatPromptText.text = "Press E to obtain food";
+      }
+      else if(hamsterBall.playerInside)
+      {
+         eatPromptText.text = "Press E to exit";
       }
       else
       {
