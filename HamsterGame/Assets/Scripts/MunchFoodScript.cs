@@ -4,7 +4,9 @@ public class MunchFoodScript : MonoBehaviour
 {
    public AudioClip munchSound;
    public AudioClip BurrowSound;
+   public AudioClip BGMTrack;
    private AudioSource audiosource;
+   private AudioSource BGM;
 
    void Start()
     {
@@ -13,6 +15,12 @@ public class MunchFoodScript : MonoBehaviour
       {
          audiosource = gameObject.AddComponent<AudioSource>();
       }
+      if (BGM == null)
+      {
+         BGM = gameObject.AddComponent<AudioSource>();
+      }
+      BGM.volume = 0.5f;
+      BGM.PlayOneShot(BGMTrack);
    }
 
    public void playMunchSound()
