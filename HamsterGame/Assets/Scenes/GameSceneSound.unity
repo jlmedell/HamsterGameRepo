@@ -2235,7 +2235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 599.5, y: 43.5}
+  m_AnchoredPosition: {x: 962.1, y: 95.7}
   m_SizeDelta: {x: 213.45, y: 49.9163}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972483951
@@ -3131,9 +3131,11 @@ MonoBehaviour:
     m_Bits: 520
   moveInput: 0
   collectionSlider: {fileID: 470177373}
+  inRange: 0
   inRangeBurrow: 0
   munchFoodScript: {fileID: 1798974969}
   coyoteTime: 0.2
+  collectibles: []
 --- !u!50 &1798974962
 Rigidbody2D:
   serializedVersion: 5

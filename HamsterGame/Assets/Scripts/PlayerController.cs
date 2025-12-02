@@ -22,14 +22,14 @@ public class PlayerController : MonoBehaviour
    private float timer;
    private float collectionLength = 65f;
    public Slider collectionSlider; // Reference to UI Slider for collecting
-   private bool inRange = false;
+   public bool inRange = false;
    public bool inRangeBurrow = false;
    public MunchFoodScript munchFoodScript;
 
    public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
    private float coyoteTimeCounter;
 
-   private GameObject[] collectibles;
+   public GameObject[] collectibles;
 
    void Start()
    {

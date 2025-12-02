@@ -61,7 +61,7 @@ public class PlayerInventory : MonoBehaviour
         {
             burrowTimer = 0f;
             isHoldingBurrow = false;
-            if (Input.GetKeyUp(KeyCode.E) || (!player.inRangeBowl && !player.inRangeBurrow))
+            if (Input.GetKeyUp(KeyCode.E) || (!player.inRange && !player.inRangeBurrow))
             {
             burrowSlider.gameObject.SetActive(false);
             burrowSlider.value = 0f;
@@ -69,12 +69,11 @@ public class PlayerInventory : MonoBehaviour
         }
         if(player.collectibles.Length > 0 && Input.GetKey(KeyCode.E))
         {
-            if(player.inRangeBowl || (player.inRangeBurrow && foodInInventory > 0))
+            if(player.inRange || (player.inRangeBurrow && foodInInventory > 0))
             {
                 munchFoodScript.playMunchSound();
-                Debug.Log("playing munch");
             }
-            else munchFoodScript.stopSound();
+            
         }
     }
 
