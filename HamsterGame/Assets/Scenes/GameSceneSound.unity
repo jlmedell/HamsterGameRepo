@@ -2235,7 +2235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 372.5, y: 43.5}
+  m_AnchoredPosition: {x: 599.5, y: 43.5}
   m_SizeDelta: {x: 213.45, y: 49.9163}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &972483951
@@ -2474,8 +2474,14 @@ Transform:
   - {fileID: 1000495244}
   - {fileID: 1966671753}
   - {fileID: 30182587}
+  - {fileID: 1176572324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1176572324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+  m_PrefabInstance: {fileID: 1736604762}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1235473087
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,6 +3028,63 @@ RectTransform:
   m_AnchoredPosition: {x: 613, y: 291.5}
   m_SizeDelta: {x: 1226, y: 583}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1736604762
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1019830810}
+    m_Modifications:
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 65.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277316331557799045, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661170426833706042, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
+      propertyPath: m_Name
+      value: HamsterTube (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d21c6655a5c6d57488fd5bb52068bad4, type: 3}
 --- !u!1 &1798974959
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,7 +3254,7 @@ MonoBehaviour:
   burrowText: {fileID: 724303642}
   burrowHoldTime: 2
   objectToSpawn: {fileID: 1465944162490708719, guid: 6bbcd97caa02d4e6999c6413f7823ece, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 1798974960}
   munchFoodScript: {fileID: 1798974969}
   burrowSlider: {fileID: 972483951}
 --- !u!58 &1798974966

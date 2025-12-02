@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
          collectionSlider.value += collectionLength * Time.deltaTime;
          munchFoodScript.playMunchSound();
          
-         
 
       }
       collectibles = GameObject.FindGameObjectsWithTag("Food");
