@@ -22,14 +22,13 @@ public class PlayerController : MonoBehaviour
    private float timer;
    private float collectionLength = 65f;
    public Slider collectionSlider; // Reference to UI Slider for collecting
-   private bool inRange = false;
+   public bool inRangeBowl = false;
    public bool inRangeBurrow = false;
-   public MunchFoodScript munchFoodScript;
 
-   public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
+   public float coyoteTime = 0.2f;
    private float coyoteTimeCounter;
 
-   private GameObject[] collectibles;
+   public GameObject[] collectibles;
 
    void Start()
    {
@@ -41,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
    void Update()
    {
-      // Check if grounded
       isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
       // Reset coyote timer and jump flag if grounded
@@ -78,7 +76,7 @@ public class PlayerController : MonoBehaviour
       }
 
       // =========================collecting food=================
-      if (inRange && collectibles.Length > 0)
+      if (inRangeBowl && collectibles.Length > 0)
       {
          eatPromptText.text = "Press E to obtain food";
       }
@@ -86,38 +84,36 @@ public class PlayerController : MonoBehaviour
       {
          eatPromptText.text = "";
       }
-      if (Input.GetKey(KeyCode.E) && (inRange || inRangeBurrow))
+
+      if (Input.GetKey(KeyCode.E) && (inRangeBowl || inRangeBurrow) && collectibles.Length > 0)
       {
          timer += Time.deltaTime;
          collectionSlider.gameObject.SetActive(true);
          collectionSlider.value += collectionLength * Time.deltaTime;
-         munchFoodScript.playMunchSound();
-         
-         
-
       }
+
       collectibles = GameObject.FindGameObjectsWithTag("Food");
       if (collectionSlider.value == collectionSlider.maxValue)
       {
          Debug.Log("Starting Collection");
-         if (inRange)
+         if (inRangeBowl)
             StartCollection();
          else if (inRangeBurrow)
             StartBurrowCollection();
          timer = 0;
          collectionSlider.value = 0;
       }
-      if (Input.GetKeyUp(KeyCode.E) || (!inRange && !inRangeBurrow) || collectibles.Length <= 0)
+
+      if (Input.GetKey(KeyCode.E) || (!inRangeBowl && !inRangeBurrow) || collectibles.Length <= 0)
       {
-         timer = 0;
-         collectionSlider.gameObject.SetActive(false);
-         collectionSlider.value = 0;
-         
+         if(Input.GetKeyUp(KeyCode.B))
+         {
+            timer = 0;
+            collectionSlider.gameObject.SetActive(false);
+            collectionSlider.value = 0;
+         }
       }
-      if(Input.GetKeyUp(KeyCode.E))
-      {
-         munchFoodScript.stopSound();
-      }
+
       collectionSlider.value = Mathf.Clamp(collectionSlider.value, collectionSlider.minValue, collectionSlider.maxValue);
    }
 
@@ -126,18 +122,20 @@ public class PlayerController : MonoBehaviour
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
    }
 
+   /*
+   // Visualize ground check (no longer needed?)
    void OnDrawGizmosSelected()
    {
-      // Visualize ground check
       if (groundCheck != null)
       {
          Gizmos.color = Color.red;
          Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
       }
    }
+   */
+
    public void StartCollection()
    {
-      //collectibles = GameObject.FindGameObjectsWithTag("Food");
       if (collectibles.Length > 0)
       {
          int randomIndex = Random.Range(0, collectibles.Length);
@@ -149,6 +147,7 @@ public class PlayerController : MonoBehaviour
          }
       }
    }
+
    public void StartBurrowCollection() {
       GameObject findNearbyFood = FindClosestObjectWithTag("BurrowFood");
       FeederScript collectibleScript = findNearbyFood.GetComponent<FeederScript>();
@@ -159,11 +158,11 @@ public class PlayerController : MonoBehaviour
       } 
    }
 
-   //check if player in range
    private void OnTriggerEnter2D(Collider2D collision)
    {
-      if (collision.CompareTag("Bowl")) {
-         inRange = true;
+      if (collision.CompareTag("Bowl"))
+      {
+         inRangeBowl = true;
       }
       if (collision.CompareTag("BurrowFood"))
       {
@@ -174,14 +173,13 @@ public class PlayerController : MonoBehaviour
    private void OnTriggerExit2D(Collider2D collision)
    {
       if (collision.CompareTag("Bowl")) {
-         inRange = false; 
+         inRangeBowl = false; 
          }
       if (collision.CompareTag("BurrowFood")) {
          inRangeBurrow = false;
       }
    }
 
-//fix bug of picking up food far away
    GameObject FindClosestObjectWithTag(string tag)
     {
         GameObject[] gameObjectsWithTag = GameObject.FindGameObjectsWithTag(tag);

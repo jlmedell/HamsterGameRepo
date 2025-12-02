@@ -1811,6 +1811,52 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5965871246978044958, guid: a05f8d841d55f5541a2b7919de7573ad, type: 3}
   m_PrefabInstance: {fileID: 4120600664914539105}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &558215171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 558215173}
+  - component: {fileID: 558215172}
+  m_Layer: 0
+  m_Name: MunchFoodScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &558215172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558215171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25ff7b90b2b88b419f82726f2176885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MunchFoodScript
+  munchSound: {fileID: 8300000, guid: 6a37ea780bad10940ae9ba7377f39d3e, type: 3}
+  BurrowSound: {fileID: 8300000, guid: 60ac39cdb90ca1940b9586b1be7c1175, type: 3}
+--- !u!4 &558215173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558215171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.68, y: -0.94, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &601479549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,9 +2978,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  moveInput: 0
   collectionSlider: {fileID: 470177373}
+  inRangeBowl: 0
   inRangeBurrow: 0
   coyoteTime: 0.2
+  collectibles: []
 --- !u!50 &1798974962
 Rigidbody2D:
   serializedVersion: 5
@@ -3055,6 +3104,9 @@ MonoBehaviour:
   burrowText: {fileID: 724303642}
   burrowHoldTime: 2
   objectToSpawn: {fileID: 1465944162490708719, guid: 6bbcd97caa02d4e6999c6413f7823ece, type: 3}
+  player: {fileID: 1798974960}
+  munchFoodScript: {fileID: 558215172}
+  burrowSlider: {fileID: 470177373}
 --- !u!58 &1798974966
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3595,3 +3647,4 @@ SceneRoots:
   - {fileID: 164348999}
   - {fileID: 307454605}
   - {fileID: 1301204906}
+  - {fileID: 558215173}
