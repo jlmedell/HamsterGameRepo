@@ -7,6 +7,7 @@ public class FeederScript : MonoBehaviour
    public PlayerInventory inventory;
    public PlayerController Player;
 
+
    // Call this method to start the collection process
    public void Start()
    {
@@ -16,6 +17,7 @@ public class FeederScript : MonoBehaviour
           inventory = playerObject.GetComponent<PlayerInventory>();
           Player = playerObject.GetComponent<PlayerController>();
       }
+
    }
    public void SetTarget(Transform newTarget)
    {

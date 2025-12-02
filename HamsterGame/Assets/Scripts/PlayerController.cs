@@ -20,10 +20,11 @@ public class PlayerController : MonoBehaviour
    public float moveInput;
    private int lastMoveDirection = 1;
    private float timer;
-   private float collectionLength = 50f;
+   private float collectionLength = 65f;
    public Slider collectionSlider; // Reference to UI Slider for collecting
    private bool inRange = false;
    public bool inRangeBurrow = false;
+   public MunchFoodScript munchFoodScript;
 
    public float coyoteTime = 0.2f; // how long after leaving ground you can still jump
    private float coyoteTimeCounter;
@@ -76,7 +77,7 @@ public class PlayerController : MonoBehaviour
          RestartLevel();
       }
 
-      // collecting food
+      // =========================collecting food=================
       if (inRange && collectibles.Length > 0)
       {
          eatPromptText.text = "Press E to obtain food";
@@ -90,6 +91,9 @@ public class PlayerController : MonoBehaviour
          timer += Time.deltaTime;
          collectionSlider.gameObject.SetActive(true);
          collectionSlider.value += collectionLength * Time.deltaTime;
+         munchFoodScript.playMunchSound();
+         
+         
 
       }
       collectibles = GameObject.FindGameObjectsWithTag("Food");
@@ -108,7 +112,11 @@ public class PlayerController : MonoBehaviour
          timer = 0;
          collectionSlider.gameObject.SetActive(false);
          collectionSlider.value = 0;
-
+         
+      }
+      if(Input.GetKeyUp(KeyCode.E))
+      {
+         munchFoodScript.stopSound();
       }
       collectionSlider.value = Mathf.Clamp(collectionSlider.value, collectionSlider.minValue, collectionSlider.maxValue);
    }

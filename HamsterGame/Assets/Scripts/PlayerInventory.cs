@@ -24,8 +24,12 @@ public class PlayerInventory : MonoBehaviour
     public GameObject objectToSpawn; 
 
     public PlayerController player;
+    public MunchFoodScript munchFoodScript;
+    private float collectionLength = 90f;
+   public Slider burrowSlider;
 
-    void Start()
+
+   void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -36,27 +40,36 @@ public class PlayerInventory : MonoBehaviour
         foodInInventory = 0;
         inventoryText.text = $"Food In Inventory: {foodInInventory}";
         UpdateUI();
-    }
+        burrowSlider.gameObject.SetActive(false);
+   }
 
     void Update()
     {
         rb.gravityScale = 3 + (foodInInventory * 0.2f); // food in inventory affects jumping
         // Detect when player holds the B key
-        if (Input.GetKey(KeyCode.B) && player.moveInput == 0)
+        if (Input.GetKey(KeyCode.B) && player.moveInput == 0 && foodInInventory > 0)
         {
-            burrowTimer += Time.deltaTime;
-            if (!isHoldingBurrow && burrowTimer >= burrowHoldTime)
+         munchFoodScript.playBurrowSound();
+         burrowTimer += Time.deltaTime;
+         burrowSlider.gameObject.SetActive(true);
+         burrowSlider.value += collectionLength * Time.deltaTime;
+         
+         
+            if (!isHoldingBurrow && burrowSlider.value == burrowSlider.maxValue)
             {
                 MakeBurrow();
                 isHoldingBurrow = true;
                 burrowTimer = 0f;
                 isHoldingBurrow = false;
+            burrowSlider.value = 0f;
             }
         }
         else
         {
             burrowTimer = 0f;
             isHoldingBurrow = false;
+            burrowSlider.gameObject.SetActive(false);
+            burrowSlider.value = 0f;
         }
         UpdateUI();
     }
